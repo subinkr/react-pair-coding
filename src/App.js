@@ -7,12 +7,21 @@ import { useState } from "react";
 function App() {
     const [user, setUser] = useState({});
     const [userList, setUserList] = useState([]);
+    const [boardList, setBoardList] = useState([
+        { id: 1, title: "title", content: "content", author: "eee" },
+        { id: 2, title: "title", content: "content", author: "eee" },
+        { id: 3, title: "title", content: "content", author: "eee" },
+        { id: 4, title: "title", content: "content", author: "eee" },
+    ]);
 
     return (
         <div className="App">
             <Header user={user} setUser={setUser} />
             <Routes>
-                <Route path="/" element={<Main user={user} />} />
+                <Route
+                    path="/"
+                    element={<Main user={user} boardList={boardList} />}
+                />
                 <Route
                     path="/login"
                     element={
@@ -24,9 +33,36 @@ function App() {
                         />
                     }
                 />
-                <Route path="/modify" element={<Modify user={user} />} />
-                <Route path="/view" element={<View user={user} />} />
-                <Route path="/write" element={<Write user={user} />} />
+                <Route
+                    path="/modify/:id"
+                    element={
+                        <Modify
+                            user={user}
+                            boardList={boardList}
+                            setBoardList={setBoardList}
+                        />
+                    }
+                />
+                <Route
+                    path="/view/:id"
+                    element={
+                        <View
+                            user={user}
+                            boardList={boardList}
+                            setBoardList={setBoardList}
+                        />
+                    }
+                />
+                <Route
+                    path="/write"
+                    element={
+                        <Write
+                            user={user}
+                            boardList={boardList}
+                            setBoardList={setBoardList}
+                        />
+                    }
+                />
                 <Route path="/mypage" element={<Mypage user={user} />} />
             </Routes>
         </div>
