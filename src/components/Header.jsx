@@ -30,7 +30,7 @@ export default ({ user }) => {
     return (
         <HeaderStyle>
             <TitleStyle>title</TitleStyle>
-            {user.id ? (
+            {user.username ? (
                 <LoginStyle>
                     <Link to={"/mypage"}>mypage</Link>
                     <Link to={"/"}>logout</Link>

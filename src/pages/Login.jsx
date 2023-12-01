@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 
 const LoginWrapper = styled.div`
@@ -35,24 +36,48 @@ const Button = styled.button`
     font-size: 17px;
 `;
 
-export default ({ user, setUser }) => {
+export default ({ user, setUser, userList, setUserList }) => {
     const login = () => {
-        const username = document.querySelector(".username");
-        const password = document.querySelector(".password");
+        const username = document.querySelector(".username").value;
+        const password = document.querySelector(".password").value;
+        const userCheck = userList.find((item) => {
+            return item.username === username && item.password === password;
+        });
+        if (userCheck) {
+            alert("로그인 되었습니다!");
+            setUser(userCheck);
+        } else {
+            alert("잘못된 아이디, 비밀번호 입니다");
+        }
     };
     const signup = () => {
-        const username = document.querySelector(".username");
-        const password = document.querySelector(".password");
+        const username = document.querySelector(".username").value;
+        const password = document.querySelector(".password").value;
+        const userCheck = userList.find((item) => {
+            return item.username === username;
+        });
+
+        if (userCheck) {
+            alert("이미 존재하는 아이디입니다!");
+        } else {
+            alert("회원가입 되었습니다~");
+            setUserList([...userList, { username, password }]);
+        }
     };
-    return (
-        <LoginWrapper>
-            <LoginStyle>
-                <TitleStyle>LOGIN</TitleStyle>
-                <Input type="text" className="username" />
-                <Input type="password" className="password" />
-                <Button onClick={login}>LOGIN</Button>
-                <Button onClick={signup}>SIGN UP</Button>
-            </LoginStyle>
-        </LoginWrapper>
-    );
+
+    const Redirect = () => {
+        if (user.username) return <Navigate to={"/"} />;
+        return (
+            <LoginWrapper>
+                <LoginStyle>
+                    <TitleStyle>LOGIN</TitleStyle>
+                    <input type="text" className="username" />
+                    <input type="password" className="password" />
+                    <Button onClick={login}>LOGIN</Button>
+                    <Button onClick={signup}>SIGN UP</Button>
+                </LoginStyle>
+            </LoginWrapper>
+        );
+    };
+    return <Redirect />;
 };
