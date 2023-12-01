@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 
-const LoginWrapper = styled.div`
+const Wrapper = styled.div`
     width: 100%;
     height: 100vh;
     margin: auto 0;
@@ -68,7 +68,7 @@ export default ({ user, setUser, userList, setUserList }) => {
     const Redirect = () => {
         if (user.username) return <Navigate to={"/"} />;
         return (
-            <LoginWrapper>
+            <Wrapper>
                 <LoginStyle>
                     <TitleStyle>LOGIN</TitleStyle>
                     <input type="text" className="username" />
@@ -76,7 +76,7 @@ export default ({ user, setUser, userList, setUserList }) => {
                     <Button onClick={login}>LOGIN</Button>
                     <Button onClick={signup}>SIGN UP</Button>
                 </LoginStyle>
-            </LoginWrapper>
+            </Wrapper>
         );
     };
     return <Redirect />;
