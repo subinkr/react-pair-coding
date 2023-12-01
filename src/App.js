@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { Login, Main, Modify, View, Write, Mypage } from "./pages";
+import { Header } from "./components";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [user, setUser] = useState({});
+    const [userList, setUserList] = useState([]);
+
+    return (
+        <div className="App">
+            <Header user={user} />
+            <Routes>
+                <Route path="/" element={<Main user={user} />} />
+                <Route
+                    path="/login"
+                    element={
+                        <Login
+                            user={user}
+                            setUser={setUser}
+                            userList={userList}
+                            setUserList={setUserList}
+                        />
+                    }
+                />
+                <Route path="/modify" element={<Modify user={user} />} />
+                <Route path="/view" element={<View user={user} />} />
+                <Route path="/write" element={<Write user={user} />} />
+                <Route path="/mypage" element={<Mypage user={user} />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
