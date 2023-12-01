@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const HeaderStyle = styled.div`
     width: 100%;
@@ -26,14 +26,16 @@ const LoginStyle = styled.div`
     justify-content: space-between;
 `;
 
-export default ({ user }) => {
+export default ({ user, setUser }) => {
     return (
         <HeaderStyle>
             <TitleStyle>title</TitleStyle>
             {user.username ? (
                 <LoginStyle>
                     <Link to={"/mypage"}>mypage</Link>
-                    <Link to={"/"}>logout</Link>
+                    <Link to={"/"} onClick={() => setUser({})}>
+                        logout
+                    </Link>
                 </LoginStyle>
             ) : (
                 <Link to={"/login"}>login</Link>
